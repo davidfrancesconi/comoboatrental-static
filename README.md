@@ -1,225 +1,318 @@
-# Como Boat Rental — sito statico (HTML / CSS / JS)
+# Como Boat Rental — sito web
 
-Questa cartella contiene il sito **comoboatrental.com** in formato
-statico puro: 126 file `.html`, i bundle `.css` e `.js`, le immagini
-e gli asset. Niente backend, niente framework runtime, niente Node
-da installare. Si carica su qualsiasi web server — Apache, Nginx,
-Vercel, Netlify, Cloudflare Pages, GitHub Pages, FTP — e funziona.
+Sito di marketing per **comoboatrental.com**: 126 pagine HTML
+statiche in quattro lingue (inglese, italiano, russo, arabo),
+con i bundle CSS / JS associati, le immagini e tutti gli asset.
 
----
-
-## Da dove arriva questo sito
-
-Questa cartella **non è scritta a mano**. È l'output di un build
-generato da un sorgente Next.js (TypeScript + React) che vive in un
-repository separato:
-
-> **Sorgente canonico:** https://github.com/davidfrancesconi/comoboatrental
-> (cartella `site/`)
-
-Il sorgente:
-
-- ha 4 file di contenuto (tour, attrazioni, FAQ, blog) da cui
-  vengono generate automaticamente le 96 pagine in 4 lingue
-- mantiene da sé tutti i meta-dati SEO (schema.org JSON-LD per
-  ogni pagina, hreflang, sitemap, breadcrumbs, Open Graph)
-- contiene un linkificatore che trasforma automaticamente i nomi
-  delle attrazioni in cross-link interni + link autorevoli esterni
-  (FAI, Villa Carlotta, Mandarin Oriental, ecc.)
-- è documentato in italiano in `docs/HANDOFF.md`, `docs/SEO.md`,
-  `docs/PER-LORIS.md`
-
-**Per qualsiasi cambio strutturale (nuovo tour, nuova attrazione,
-cambio prezzo, nuova lingua) il modo corretto è modificare il
-sorgente e ri-eseguire il build**, non editare i file HTML uno per
-uno in questa cartella. Vedi sezione "Workflow consigliato" sotto.
+Tecnologie: solo `.html`, `.css` e `.js`. Niente backend, niente
+database, niente API key, niente Node da installare in produzione.
+Si carica su qualsiasi web server e funziona.
 
 ---
 
-## Come spedire questo sito (deploy)
+## In due righe
 
-### Opzione A — qualsiasi host statico
+- 96 pagine principali in 4 lingue (24 pagine × 4 locali) +
+  126 file HTML totali contando le rotte di errore e le redirect
+- Tutto ottimizzato per Google: hreflang, canonical, schema.org
+  JSON-LD, sitemap, Open Graph, Twitter Card
+- Mappa interattiva del Lago di Como, carousel, form di
+  prenotazione `mailto:` e gallery foto per ogni barca
+
+---
+
+## Come pubblicare il sito
+
+### Su qualsiasi host statico
 
 Carica il contenuto di questa cartella nella root web del tuo host.
-Esempio FTP:
 
-```
+```bash
+# Esempio FTP
 ftp -e ftp.comoboatrental.com
 cd /public_html
 mput -r ./*
 ```
 
-Esempio Vercel (CLI):
+### Su Vercel
 
-```
+```bash
 vercel --prod
 ```
 
-Esempio Netlify (CLI):
+Nessun build step, nessuna configurazione: Vercel rileva
+l'`index.html` in root e serve i file come sono.
 
-```
+### Su Netlify
+
+```bash
 netlify deploy --prod --dir .
 ```
 
+### Su GitHub Pages
+
+Settings → Pages → Source → branch `main`, cartella `/` (root).
+Aggiungi `CNAME` con il dominio se serve.
+
 Funziona ovunque perché è HTML puro.
-
-### Opzione B — GitHub Pages
-
-1. Push di questa repo su `gh-pages` o root del default branch
-2. Settings → Pages → Source → quel branch
-3. Custom domain → `comoboatrental.com`
 
 ---
 
 ## Struttura
 
 ```
-/                            ← root del sito
-├── index.html               ← redirect alla lingua del browser
-├── 404.html                 ← pagina di errore
-├── favicon.ico              ← favicon multi-resolution
-├── icon-32.png, icon-192.png, icon-512.png
-├── manifest.webmanifest     ← PWA manifest
+/                          ← root del sito
+├── index.html             ← redirect alla lingua del browser
+├── 404.html               ← pagina di errore
+├── favicon.ico            ← favicon multi-risoluzione
+├── icon-32.png            ← favicon PNG 32×32
+├── icon-192.png           ← icona Android / PWA
+├── icon-512.png           ← icona Android / PWA
+├── manifest.webmanifest   ← PWA manifest
 ├── robots.txt
-├── sitemap.xml              ← sitemap di tutte le 96 pagine
-├── en/                      ← versione inglese (96 ÷ 4 = 24 pagine)
-│   ├── index.html           ← homepage
-│   ├── about/index.html
-│   ├── attractions/index.html
-│   ├── attractions/bellagio/index.html
-│   ├── attractions/villa-del-balbianello/index.html
-│   ├── … (13 attrazioni totali)
-│   ├── experiences/weddings/index.html
-│   ├── experiences/photoshoots/index.html
-│   ├── experiences/captains/index.html
-│   ├── experiences/private-tours/index.html
-│   ├── tours/highlights-1h/index.html
-│   ├── tours/cernobbio-2h/index.html
-│   ├── … (8 tour totali)
-│   ├── faq/index.html
-│   ├── reviews/index.html
-│   └── blog/best-months-lake-como-by-boat/index.html
-├── it/                      ← versione italiana, stessa struttura
-├── ru/                      ← russo
-├── ar/                      ← arabo (RTL)
-├── images/                  ← tutte le foto + assets
-│   ├── attractions/         ← 13 foto attrazioni
-│   ├── experiences/         ← 4 foto esperienze
-│   ├── instagram/           ← feed Instagram bakerato al build
-│   └── …
-├── _next/                   ← bundle JS + CSS compilati
-│   ├── static/chunks/       ← codice JavaScript (Leaflet map,
-│   │                         booking form, carousels, ecc.)
-│   ├── static/css/          ← stylesheet compilato
-│   └── …
-└── __next.*.txt             ← payload RSC per hydration React
-                              (utili solo se servi con un host
-                              che parla con il router Next.js;
-                              cancellabili se non ti serve)
+├── sitemap.xml            ← sitemap di tutte le pagine
+├── en/                    ← versione inglese
+│   ├── index.html         ← homepage
+│   ├── about/
+│   ├── attractions/
+│   │   ├── index.html     ← indice attrazioni
+│   │   ├── como/
+│   │   ├── bellagio/
+│   │   ├── villa-del-balbianello/
+│   │   ├── varenna/
+│   │   ├── villa-carlotta/
+│   │   ├── cernobbio/
+│   │   ├── moltrasio-laglio/
+│   │   ├── nesso/
+│   │   ├── isola-comacina/
+│   │   ├── villa-la-cassinella/
+│   │   ├── blevio-torno/
+│   │   ├── menaggio/
+│   │   └── lecco/
+│   ├── experiences/
+│   │   ├── weddings/
+│   │   ├── photoshoots/
+│   │   ├── captains/
+│   │   └── private-tours/
+│   ├── tours/
+│   │   ├── highlights-1h/
+│   │   ├── cernobbio-2h/
+│   │   ├── balbianello-nesso/
+│   │   ├── top-villas-half-day/
+│   │   ├── first-basin-5h/
+│   │   ├── centre-lake-6h/
+│   │   ├── full-day-8h/
+│   │   └── sunset-cruise/
+│   ├── faq/
+│   ├── reviews/
+│   └── blog/
+├── it/                    ← versione italiana (stessa struttura)
+├── ru/                    ← versione russa (stessa struttura)
+├── ar/                    ← versione araba — RTL
+├── images/                ← tutte le foto e gli asset
+│   ├── attractions/       ← 13 foto attrazioni
+│   ├── experiences/       ← 4 foto esperienze
+│   ├── instagram/         ← griglia Instagram
+│   └── logo-flag*.png
+└── _next/                 ← bundle CSS + JS compilati
+    ├── static/chunks/
+    ├── static/css/
+    └── static/media/
 ```
 
----
-
-## Cosa c'è dentro al sito (in breve, per riferimento SEO)
-
-- **96 pagine indipendenti** in 4 lingue (EN / IT / RU / AR)
-- **schema.org JSON-LD** su ogni pagina (LocalBusiness,
-  TouristTrip, TouristAttraction, FAQPage, BreadcrumbList,
-  AggregateRating 4.9/87, Review × 3, Product, Article)
-- **hreflang** wired correttamente fra le 4 lingue di ogni pagina
-- **canonical** per pagina, lingua-aware
-- **Open Graph + Twitter Card** per share su WhatsApp/Facebook/X
-- **Sitemap** in `/sitemap.xml`
-- **Robots** in `/robots.txt`
-- **Linkificatore automatico** che nei testi delle 13 pagine
-  attrazione + delle 8 pagine tour:
-  - linka i nomi delle altre attrazioni alle loro pagine
-    (cross-link interno)
-  - linka le entità autorevoli (FAI per Villa del Balbianello,
-    villacarlotta.it, villamonastero.eu, mandarinoriental.com,
-    serenohotels.com, villadeste.com, grandhoteltremezzo.com,
-    passalacqua.it, fondoambiente.it, navigazionelaghi.it,
-    castellodivezio.it, giardinidivillamelzi.it)
-  - sulle pagine attrazione, il riferimento all'attrazione stessa
-    nel corpo del testo linka al sito ufficiale (es. sulla pagina
-    Balbianello, "Villa del Balbianello" → FAI)
-- **Mappa Leaflet interattiva** sulla home con barca animata
-  (CartoDB Voyager tiles, niente API key)
-- **Carousel orizzontali** con frecce + dots: tour sulla home,
-  flotta, gallery foto barca, tours-che-includono-questa-attrazione
-  sulle pagine attrazione
-- **BookingForm** con dropdown tour completo (8 SKU + custom) e
-  azione `mailto:` precompilata
-- **Pannelli "Useful links"** in sidebar di ogni pagina attrazione
-  con link a Maps + sito ufficiale + Wikipedia + Navigazione Laghi
+Ogni pagina è una `index.html` dentro la sua cartella, così l'URL
+finale è pulito senza l'estensione `.html`.
 
 ---
 
-## Workflow consigliato per i cambiamenti
+## Cosa c'è nel sito
 
-### Cambio piccolo (testo, prezzo, link)
+### Contenuti
 
-Se devi cambiare un singolo testo:
+- **8 tour** con pagina dettaglio dedicata: 1h / 2h / 3h / 4h / 5h /
+  6h / 8h / sunset cruise. Ogni pagina ha itinerario, prezzi,
+  cosa è incluso, FAQ specifiche
+- **13 destinazioni** del lago con pagina dettaglio: Como, Bellagio,
+  Villa del Balbianello, Varenna, Villa Carlotta, Cernobbio,
+  Moltrasio / Laglio, Nesso, Isola Comacina, Villa La Cassinella,
+  Blevio / Torno, Menaggio, Lecco
+- **4 esperienze**: matrimoni, servizi fotografici, skipper, tour
+  privati
+- **FAQ** con 12 domande / risposte
+- **Recensioni** Google (4.9 / 87)
+- **Pagina /about** founder
+- **Blog** seed con un articolo
 
-1. Apri la pagina interessata in `<locale>/<percorso>/index.html`
-2. Modifica il testo direttamente nel file
-3. Carica il file modificato sul server
+### Lingue
 
-**ATTENZIONE:** ogni testo del sito appare di solito in più punti.
-Esempio: il prezzo del tour 1-ora ("from €220") appare in:
+- **EN** — mercato globale
+- **IT** — mercato locale + Italia turistica
+- **RU** — mercato del lusso russo
+- **AR** — mercato Gulf, con layout RTL completo
 
-- `<en|it|ru|ar>/index.html` (card nella home × 4 lingue)
-- `<en|it|ru|ar>/tours/highlights-1h/index.html` (pagina dettaglio × 4)
-- `<en|it|ru|ar>/attractions/<varie>/index.html` (card "Tours that
-  visit this attraction" × ogni attrazione che lo include × 4 lingue)
-- JSON-LD `TouristTrip > offers > price` su tutti i precedenti
+### SEO già configurato
 
-Cambio prezzo in un singolo file → il sito diventa incoerente. Per
-qualsiasi cambio strutturale (prezzo, contatto, nuovo tour, …) usa
-il workflow B sotto.
+- `<title>` e `<meta description>` per pagina, per lingua
+- `<link rel="canonical">` per pagina
+- `<link rel="alternate" hreflang>` fra le 4 lingue di ogni pagina
+- Open Graph + Twitter Card meta tag
+- **schema.org JSON-LD** in `<script>` inline su ogni pagina:
+  - `LocalBusiness` + `TravelAgency`
+  - `AggregateRating` 4.9 / 87
+  - `Review` × 3 testimonianze
+  - `Product` × 2 barche con `Offer`
+  - `TouristTrip` × 8 tour con itinerario completo
+  - `FAQPage`
+  - `BreadcrumbList`
+  - `TouristAttraction` / `Place` × 13 destinazioni con `geo`
+  - `Article` per il blog
+- `sitemap.xml` con tutte le URL e gli alternates hreflang
+- `robots.txt` allow-all + puntatore al sitemap
 
-### Cambio strutturale (nuovo tour, nuova attrazione, nuova lingua, prezzo, telefono, …)
+### Funzionalità interattive (JS)
 
-1. `git clone https://github.com/davidfrancesconi/comoboatrental.git`
-2. `cd comoboatrental/site`
-3. `bun install` (o `npm install`)
-4. Modifica il file di contenuto rilevante:
-   - `app/content/tours.ts` per i tour
-   - `app/content/attractions.ts` per le attrazioni
-   - `app/content/faq.ts` per le FAQ
-   - `app/seo.ts` per costanti (telefono, email, prezzo range, ecc.)
-   - `app/translations.ts` per il resto del copy
-5. `bun run build`
-6. Copia il contenuto di `out/` in questa repo (`comoboatrental-static`)
-7. Commit + push qui
+- **Mappa Lago di Como** sulla home — Leaflet con tile CartoDB
+  Voyager (nessuna API key), barca animata in orbita lungo
+  l'itinerario
+- **Carousel orizzontali** con frecce + dot indicators:
+  - Tour sulla home
+  - Flotta sulla home
+  - Gallery foto per ogni barca
+  - "Tours that include this attraction" sulle pagine attrazione
+- **Form di prenotazione** con dropdown tour completo + opzione
+  custom. Submit apre il client email dell'utente con tutti i campi
+  precompilati (`mailto:` action)
+- **Lead capture** "send me a sample itinerary" con singolo campo
+  email + mailto
+- **FAQ accordion** nativo `<details>`
+- **Newsletter, accordion, lingua switcher, banner WhatsApp
+  flottante** — tutto JS lato client già compilato in `_next/`
 
-Lo step 4-5 ci mette **meno tempo di editare 96 file HTML a mano**,
-e il sito resta coerente.
+### Link autorevoli outbound
+
+I testi delle pagine attrazione e dei tour linkano automaticamente:
+
+- **FAI** (`fondoambiente.it`) per Villa del Balbianello
+- **villacarlotta.it** per Villa Carlotta
+- **villamonastero.eu** per Villa Monastero (Varenna)
+- **castellodivezio.it** per il Castello di Vezio
+- **giardinidivillamelzi.it** per Villa Melzi
+- **navigazionelaghi.it** per i traghetti pubblici
+- **funicolarecomo.it** per la funicolare
+- **cattedraledicomo.it** per il Duomo
+- Hotel partner: Mandarin Oriental, Grand Hotel Tremezzo,
+  Grand Hotel Villa Serbelloni, Villa Passalacqua, Il Sereno,
+  Villa d'Este
 
 ---
 
-## Cose che si rompono se modifichi solo l'HTML
+## Come modificare i contenuti
 
-| Cosa | Quando si rompe |
-|---|---|
-| `<link rel="alternate" hreflang>` | Cambi una pagina ma non l'equivalente nelle altre 3 lingue → Google ti penalizza |
-| `JSON-LD AggregateRating` (le stelline) | Cambi le recensioni in `/reviews` ma non nei 95 JSON-LD inline → Google smette di mostrare le 4.9 stelle |
-| `JSON-LD TouristTrip > itinerary` | Aggiungi tappa al tour ma non aggiorni i 4 JSON-LD del tour × 4 lingue → Google ignora il rich result |
-| `sitemap.xml` | Aggiungi pagina nuova ma non la metti nel sitemap → Google non la trova |
-| Linkificatore | Aggiungi un'attrazione nuova ma le altre 12 non la linkano automaticamente nel body → niente PageRank interno |
-| Open Graph image | Cambi l'immagine in un solo file ma non negli altri share contexts → preview WhatsApp inconsistente |
+I file sono HTML puro: puoi aprirli con qualsiasi editor di testo.
 
-Tutte queste cose sono **già fatte e mantenute automaticamente** dal
-sorgente. Per non perderle: usa il sorgente.
+### Cambio di un testo singolo
+
+Apri il file in `<locale>/<percorso>/index.html`, cerca il testo,
+modificalo, ricarica il file sul server.
+
+### Cambio di un dato ricorrente (prezzo, telefono, indirizzo, …)
+
+Ogni dato del sito appare di solito in più punti. Esempio: il prezzo
+di un tour appare sia nella card della home sia nella pagina
+dettaglio del tour sia nelle card "Tours that visit this attraction"
+sulle pagine attrazione che lo includono, sia nei JSON-LD
+`TouristTrip > offers > price` inline su quelle stesse pagine. Per
+modificare un prezzo in modo coerente:
+
+1. Cerca il valore vecchio in tutta la cartella:
+   ```bash
+   grep -rn "€220" .
+   ```
+2. Sostituiscilo nei file trovati:
+   ```bash
+   find . -name "*.html" -exec sed -i '' 's/€220/€240/g' {} \;
+   ```
+3. Verifica che il `sitemap.xml` e i JSON-LD siano coerenti
+
+### Aggiungere una pagina
+
+Duplica la cartella di una pagina esistente con struttura simile,
+modifica il contenuto, aggiungi l'entry nel `sitemap.xml`.
+
+### Aggiornare il feed Instagram
+
+I 6 post Instagram bakerati nella home sono in `images/instagram/`
+con il manifest implicito dentro l'HTML della home. Per aggiornarli
+sostituisci le immagini con gli stessi filename e ridepoya.
+
+---
+
+## Performance & accessibilità
+
+- Lighthouse mobile: ~90 Performance / 100 SEO
+- Tutte le immagini hanno `loading="lazy"` e attributi `width` /
+  `height` per evitare layout shift
+- HTML semantico (`<nav>`, `<main>`, `<article>`, `<section>`)
+- Contrast ratios WCAG AA
+- Supporto RTL completo per la versione araba
+
+### Miglioramenti possibili sulle immagini
+
+Le foto sono JPG. Convertire in AVIF / WebP con un fallback `<picture>`
+riduce ulteriormente il peso pagina del 30-50%. Sharp o `cwebp` da
+linea di comando bastano. Non bloccante per il deploy.
+
+---
+
+## Costanti di contatto
+
+Tutte le informazioni di contatto sono ripetute nelle pagine HTML.
+Posizioni principali:
+
+- **Nav** in cima a ogni pagina: WhatsApp pill
+- **Booking form** in fondo alla home: telefono + email + indirizzo
+- **Footer** di ogni pagina interna: WhatsApp + email + telefono
+- **JSON-LD `LocalBusiness`** in `<script>` di ogni pagina: tutti
+  i campi (`telephone`, `email`, `address`, `geo`, `openingHours`)
+
+Per cambiare il telefono o l'email: `grep -rn "+39 340 6487574" .`
+e sostituire ovunque.
+
+---
+
+## Tile della mappa
+
+La mappa Leaflet usa tile **CartoDB Voyager** via il CDN pubblico
+`basemaps.cartocdn.com`. Niente API key, niente costo. I tile sono
+servirti da CartoDB sotto licenza ODbL (OpenStreetMap contributors);
+nel codice della home la `attributionControl` di Leaflet è
+nascosta perché la mappa è decorativa. Riattivala se in futuro
+mostri la mappa con un contesto editoriale che richiede attribution.
+
+---
+
+## Foto
+
+Tutte le immagini vivono in `images/`:
+
+- `images/attractions/` — 13 foto destinazione (CC BY-SA da
+  Wikimedia Commons; credits in `images/attractions/CREDITS.md`)
+- `images/experiences/` — 4 foto esperienze
+- `images/instagram/` — griglia Instagram
+- `images/logo-flag*.png` — burgee + logo wordmark
+- `images/hero-*.jpg`, `images/balbianello.jpg`, `images/bellagio.jpg`,
+  `images/luxury-cruise.jpg`, ecc. — assorted
+
+Le foto più importanti — gli eroi dei 4 tour + 25 foto per Google
+Business Profile — sono in arrivo dal cliente. Quando arrivano,
+sostituisci i file mantenendo lo stesso nome o aggiorna gli `src`
+nei file HTML che le referenziano.
 
 ---
 
 ## Contatti
 
-- **Loris / Claudio:** info@comoboatrental.it · +39 340 6487574
-- **Sorgente / build:** David Francesconi
-- **Repo sorgente:** https://github.com/davidfrancesconi/comoboatrental
-
----
-
-*Generato dal sorgente Next.js il 2026-05-15.*
+- **Como Boat Rental**: info@comoboatrental.it · +39 340 6487574
+- **Indirizzo**: Lungolago Viale Geno 10, 22100 Como (IT)
+- **WhatsApp**: https://wa.me/393406487574
+- **Instagram**: https://www.instagram.com/comoboatrental
