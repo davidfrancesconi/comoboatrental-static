@@ -6,11 +6,10 @@ Loris e Claudio. Copre solo gli aspetti tecnici:
 
 1. **Cosa c'è nel sito** — ogni superficie SEO e di contenuto
    attualmente in produzione
-2. **Come pubblicare il sito** — deploy su qualsiasi host statico
-3. **Come modificare il sito** — workflow consigliato + caveat
-4. **Cosa resta da fare** — task tecnici concreti
-5. **Checklist di verifica**
-6. **Contatti**
+2. **Come modificare il sito** — workflow consigliato + caveat
+3. **Cosa resta da fare** — task tecnici concreti
+4. **Checklist di verifica**
+5. **Contatti**
 
 Per le attività **fuori dal sito** che servono a far rendere il
 progetto (Google Business Profile, OTA come GetYourGuide e
@@ -181,48 +180,7 @@ turismo).
 
 ---
 
-## 2. Come pubblicare il sito
-
-### Su qualsiasi host statico
-
-Carica il contenuto della cartella nella root web dell'host.
-
-```bash
-# Esempio FTP
-ftp -e ftp.comoboatrental.com
-cd /public_html
-mput -r ./*
-```
-
-### Su Vercel
-
-```bash
-vercel --prod
-```
-
-Nessun build step, nessuna configurazione: Vercel rileva
-l'`index.html` in root e serve i file come sono. Push su
-GitHub → Vercel auto-deploya.
-
-### Su Netlify
-
-```bash
-netlify deploy --prod --dir .
-```
-
-### Su GitHub Pages
-
-Settings → Pages → Source → branch `main`, cartella `/` (root).
-Aggiungi un `CNAME` con il dominio se serve.
-
-### Su Cloudflare Pages, S3, qualsiasi altro
-
-Funziona ovunque perché è HTML puro. Punta l'host a servire la
-cartella come root web.
-
----
-
-## 3. Come modificare il sito
+## 2. Come modificare il sito
 
 I file sono HTML puro: si aprono con qualsiasi editor di testo
 (VS Code, Sublime, Notepad++, anche TextEdit). Niente da
@@ -296,7 +254,7 @@ mantenendo gli stessi filename e ricarica.
 
 ---
 
-## 4. Cosa resta da fare
+## 3. Cosa resta da fare
 
 Nessuno di questi è bloccante — il sito parte e si posiziona
 competitivo così com'è. Affronta nell'ordine di impatto-per-ora.
@@ -447,7 +405,7 @@ Vincite veloci rimaste:
 
 ---
 
-## 5. Checklist di verifica
+## 4. Checklist di verifica
 
 Prima di promuovere qualsiasi modifica in produzione:
 
@@ -477,7 +435,7 @@ Prima di promuovere qualsiasi modifica in produzione:
 
 ---
 
-## 6. Contatti
+## 5. Contatti
 
 ### Costanti di contatto del business
 
@@ -491,7 +449,7 @@ Prima di promuovere qualsiasi modifica in produzione:
 - **Founders**: Loris e Claudio
 
 Tutte queste costanti appaiono ripetute ovunque nel sito. Per
-aggiornarle: `grep -rn` + `sed` come descritto nella sezione 3.
+aggiornarle: `grep -rn` + `sed` come descritto nella sezione 2.
 
 ### Per domande sul contenuto
 

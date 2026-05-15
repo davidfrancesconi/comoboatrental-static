@@ -46,43 +46,6 @@ Si carica su qualsiasi web server e funziona.
 
 ---
 
-## Come pubblicare il sito
-
-### Su qualsiasi host statico
-
-Carica il contenuto di questa cartella nella root web del tuo host.
-
-```bash
-# Esempio FTP
-ftp -e ftp.comoboatrental.com
-cd /public_html
-mput -r ./*
-```
-
-### Su Vercel
-
-```bash
-vercel --prod
-```
-
-Nessun build step, nessuna configurazione: Vercel rileva
-l'`index.html` in root e serve i file come sono.
-
-### Su Netlify
-
-```bash
-netlify deploy --prod --dir .
-```
-
-### Su GitHub Pages
-
-Settings → Pages → Source → branch `main`, cartella `/` (root).
-Aggiungi `CNAME` con il dominio se serve.
-
-Funziona ovunque perché è HTML puro.
-
----
-
 ## Struttura
 
 ```
