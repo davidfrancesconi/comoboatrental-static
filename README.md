@@ -8,6 +8,16 @@ Tecnologie: solo `.html`, `.css` e `.js`. Niente backend, niente
 database, niente API key, niente Node da installare in produzione.
 Si carica su qualsiasi web server e funziona.
 
+> 📚 **Documentazione completa in [`docs/`](./docs/):**
+>
+> - 📈 [`docs/SEO.md`](./docs/SEO.md) — cosa fa il sito per Google
+>   e perché, spiegato in italiano semplice
+> - 📋 [`docs/PER-LORIS.md`](./docs/PER-LORIS.md) — checklist
+>   operativa off-site per Loris (Google Business Profile,
+>   Tripadvisor, Bokun, partnership hotel, foto)
+> - 🛠 [`docs/HANDOFF.md`](./docs/HANDOFF.md) — handoff tecnico per
+>   lo sviluppatore (struttura, deploy, modifiche, task residui)
+
 ---
 
 ## In due righe
