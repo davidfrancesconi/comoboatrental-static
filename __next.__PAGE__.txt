@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+3:I[97367,["/_next/static/chunks/0dbhjjzl8qfwv.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+2:["$","p",null,{"style":{"fontFamily":"system-ui, sans-serif","padding":24},"children":["Redirecting to ",["$","a",null,{"href":"/en/","children":"Como Boat Rental"}],"…"]}]
+0:{"rsc":["$","$1","c",{"children":[[["$","meta",null,{"httpEquiv":"refresh","content":"0;url=/en/"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n    (function(){\n      try {\n        var langs = (navigator.languages || [navigator.language || 'en']).map(function(l){ return l.toLowerCase(); });\n        var supported = ['en','it','ru','ar'];\n        var pick = 'en';\n        for (var i = 0; i < langs.length; i++) {\n          var L = langs[i].split('-')[0];\n          if (supported.indexOf(L) !== -1) { pick = L; break; }\n        }\n        window.location.replace('/' + pick + '/');\n      } catch(e) {\n        window.location.replace('/en/');\n      }\n    })();\n  "}}],["$","noscript",null,{"children":"$2"}]],null,["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"2JtqDnA4xnLgDE19awyHw"}
+5:null

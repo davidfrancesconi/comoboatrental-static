@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://comoboatrental.com
+Sitemap: https://comoboatrental.com/sitemap.xml
