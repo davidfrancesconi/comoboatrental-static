@@ -22,12 +22,27 @@ Si carica su qualsiasi web server e funziona.
 
 ## In due righe
 
-- 96 pagine principali in 4 lingue (24 pagine × 4 locali) +
-  126 file HTML totali contando le rotte di errore e le redirect
+- **122 pagine di contenuto** in 4 lingue + 4 file di supporto
+  (404, redirect root, helper) = **126 file `.html` totali**
 - Tutto ottimizzato per Google: hreflang, canonical, schema.org
   JSON-LD, sitemap, Open Graph, Twitter Card
 - Mappa interattiva del Lago di Como, carousel, form di
   prenotazione `mailto:` e gallery foto per ogni barca
+
+### Le 122 pagine di contenuto
+
+| Tipo | Quante |
+|---|---|
+| Homepage × 4 lingue | 4 |
+| Indici attrazioni × 4 lingue | 4 |
+| Pagine attrazione (13 × 4 lingue) | 52 |
+| Pagine esperienza (4 × 4 lingue) | 16 |
+| Pagine tour (8 × 4 lingue) | 32 |
+| FAQ × 4 lingue | 4 |
+| Recensioni × 4 lingue | 4 |
+| /about × 4 lingue | 4 |
+| Blog (EN + IT) | 2 |
+| **Totale** | **122** |
 
 ---
 
